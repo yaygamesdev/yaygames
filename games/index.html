@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yay Games - Play Online</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-dark: #0f0f0f;
+  --text-light: #fff;
+  --text-muted: #bbb;
+  --accent: #3b82f6;
+}
+* { box-sizing: border-box; margin:0; padding:0;}
+body { font-family: 'Rajdhani', sans-serif; background: var(--bg-dark); color: var(--text-light); display: flex; flex-direction: column; }
+
+.top-bar { display:flex; justify-content:space-between; align-items:center; padding:0.75rem 1rem; background:#151515; border-bottom:1px solid #222; position: relative; z-index: 1002; }
+.brand { display:flex; align-items:center; gap:0.5rem; font-family:'Orbitron', sans-serif; font-size:1.8rem; font-weight:700; color:var(--accent); cursor:pointer; transition: all 0.3s ease; }
+.brand span { display:inline-block; }
+.brand:hover { color:#60a5fa; text-shadow:0 0 8px rgba(59,130,246,0.6); }
+#game-search-top { padding:0.4rem 0.8rem; border-radius:12px; border:none; font-size:1rem; background:#222; color:#fff; }
+
+.container { display:flex; flex:1; min-height: calc(100vh - 60px); position:relative; }
+nav#sidebar { position: fixed; top: 60px; left: 0; height: calc(100% - 60px); width:220px; background:#151515; padding:1rem; border-right:1px solid #222; transform: translateX(-100%); transition: transform 0.3s ease; z-index: 1000; display:flex; flex-direction:column; gap:0.5rem; }
+nav#sidebar.open { transform: translateX(0); }
+nav a { text-decoration:none; color:var(--text-muted); padding:0.5rem 0.75rem; border-radius:12px; font-size:1rem; transition:all 0.3s; display:flex; align-items:center; gap:0.5rem; cursor:pointer; }
+nav a.active, nav a:hover { background: var(--accent); color:#fff; }
+
+#sidebar-toggle { position: fixed; top: 50%; left: 0; width: 30px; height: 60px; background: var(--accent); color: #fff; border-radius: 0 8px 8px 0; cursor: pointer; z-index: 1003; font-size: 1.2rem; display:flex; align-items:center; justify-content:center; transition: left 0.3s; }
+
+main {flex:1; padding:1rem; width:100%;}
+.section-title { margin:1rem 0; font-size:1.3rem; font-weight:bold; }
+.featured-hero { width:100%; overflow:hidden; margin-bottom:1rem; position:relative; }
+.hero-big { width:100%; height:50vw; max-height:500px; border-radius:16px; display:flex; align-items:center; padding:0 2rem; background-size:cover; background-position:center; opacity:0; transition:opacity 1s ease; position:relative; }
+.hero-big::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px; background: linear-gradient(to top, rgba(15,15,15,0.95) 0%, rgba(15,15,15,0) 10%), linear-gradient(to bottom, rgba(15,15,15,0.95) 0%, rgba(15,15,15,0) 10%), radial-gradient(ellipse 90% 80% at 50% 50%, rgba(0,0,0,0) 35%, rgba(15,15,15,0.95) 70%); }
+.hero-big.show { opacity:1; }
+.hero-content { display:flex; flex-direction:column; align-items:flex-start; background:rgba(0,0,0,0.5); padding:1rem 1.5rem; border-radius:12px; z-index:1; position:relative; }
+.hero-big h2 { font-size:3rem; margin-bottom:0.5rem; }
+.hero-big a { display:inline-block; padding:0.8rem 1.4rem; border-radius:10px; text-decoration:none; color:#fff; font-weight:bold; font-size:1.1rem; background:var(--accent); transition: background 0.3s, transform 0.2s; }
+.hero-big a:hover { background:#2563eb; transform:scale(1.05); }
+
+.game-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1.2rem; }
+.game-card { border-radius:16px; text-align:center; cursor:pointer; color:#fff; transition:transform 0.3s, box-shadow 0.3s; overflow:hidden; background:#222; position:relative; text-decoration:none; display:block; }
+.game-card:hover { transform: translateY(-6px); box-shadow:0 8px 20px rgba(0,0,0,0.6);}
+.game-card img { width:100%; height:150px; object-fit:cover; }
+.game-card .gradient-bottom { position:absolute; bottom:0; left:0; width:100%; height:100%; z-index:0; border-radius:0 0 16px 16px; }
+.game-card h3 { position:relative; z-index:1; margin:0.6rem 0; font-family:'Orbitron', sans-serif; }
+.row-title { margin:1.2rem 0 0.6rem; font-size:1.3rem; font-weight:bold; }
+
+footer { text-align:center; padding:1.5rem; background:#111; font-size:0.85rem; color:#666; border-top:1px solid #222; }
+
+/* Gradients for new games */
+.roblox    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff004d 100%); }
+.bloxd     .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00d4ff 100%); }
+.clashroyale .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ffd700 100%); }
+.snakeio   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #7fff00 100%); }
+.brawlstars .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff7f50 100%); }
+.bonk      .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #9370db 100%); }
+.buildroyale .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #1e90ff 100%); }
+.diep      .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff4500 100%); }
+.evoworld  .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #32cd32 100%); }
+.fallguys  .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff69b4 100%); }
+.geometrylite .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00ced1 100%); }
+.holeio    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ffa500 100%); }
+.krunker   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #708090 100%); }
+.paper2    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff6347 100%); }
+.rocket    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00ff7f 100%); }
+.shellshockers .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ffff00 100%); }
+.ships3d   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00bfff 100%); }
+.skyriders .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff1493 100%); }
+.smashkarts .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #32cd32 100%); }
+.starve    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #8b0000 100%); }
+.surviv    .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #4682b4 100%); }
+.venge     .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff1493 100%); }
+.zombs     .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #adff2f 100%); }
+.simplyup  .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00ffff 100%); }
+.vortex9   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff00ff 100%); }
+.overtide  .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff8800 100%); }
+.rooftop   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #00ff88 100%); }
+.rallydirt .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff4444 100%); }
+.breakfree .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #4488ff 100%); }
+.timeshooter2 .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ffff44 100%); }
+.gridpunk  .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #44ff44 100%); }
+.kourio   .gradient-bottom { background: linear-gradient(180deg, rgba(0,0,0,0) 60%, #ff8844 100%); }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div class="brand" id="top-home"><span>🎮</span><span>Yay Games</span></div>
+  <input type="text" id="game-search-top" placeholder="Search games...">
+</div>
+
+<div class="container">
+<nav id="sidebar">
+  <a data-filter="all">🗂️ All</a>
+  <a data-filter="arcade">🕹️ Arcade</a>
+  <a data-filter="shooting">💥 Shooting</a>
+  <a data-filter="racing">🏎️ Racing</a>
+  <a data-filter="io">🌐 IO</a>
+  <a data-filter="survival">🛡️ Survival</a>
+  <a data-filter="strategy">🎯 Strategy</a>
+  <a data-filter="mobile">📱 Mobile</a>
+  <hr>
+  <a data-filter="multiplayer">👥 Multiplayer</a>
+  <a data-filter="trending">🔥 Trending</a>
+  <a data-filter="new">🆕 New</a>
+  <a data-filter="top">⭐ Top Rated</a>
+</nav>
+
+<main>
+<h2 class="section-title" id="section-title">Home</h2>
+<div class="featured-hero" id="hero-section">
+  <div class="hero-big" id="hero-big">
+    <div class="hero-content">
+      <h2 id="hero-title"></h2>
+      <a id="hero-link" href="#">Play Now</a>
+    </div>
+  </div>
+</div>
+<div id="dynamic-section"></div>
+</main>
+</div>
+
+<div id="sidebar-toggle">▶</div>
+<footer>© 2025 Yay Games. All rights reserved.</footer>
+
+<script>
+// Sidebar toggle
+const sidebarToggle = document.getElementById("sidebar-toggle");
+const sidebar = document.getElementById("sidebar");
+sidebar.classList.remove("open");
+sidebarToggle.innerHTML = "▶";
+sidebarToggle.style.left = "0px";
+sidebarToggle.addEventListener("click", ()=>{
+  const isOpen = sidebar.classList.toggle("open");
+  sidebarToggle.innerHTML = isOpen ? "◀" : "▶"; 
+  sidebarToggle.style.left = isOpen ? "220px" : "0px";
+});
+
+// Featured hero
+const featuredGames = ["Roblox","Bloxd.io","Clash Royale","Snake.io","Gridpunk 3v3","Vortex 9","Rooftop Run"];
+let currentHeroIndex=0;
+const sectionTitle = document.getElementById("section-title");
+const dynamicSection = document.getElementById("dynamic-section");
+const heroSection = document.getElementById("hero-section");
+const heroDiv = document.getElementById("hero-big");
+const heroTitle = document.getElementById("hero-title");
+const heroLink = document.getElementById("hero-link");
+const navLinks = document.querySelectorAll("nav a");
+const topHome = document.getElementById("top-home");
+const searchTop = document.getElementById("game-search-top");
+
+const games = [
+  {name:"Roblox", link:"game-roblox.html", category:"multiplayer sandbox mobile trending new", img:"thumbnails/roblox.jpeg", cls:"roblox"},
+  {name:"Bloxd.io", link:"game-bloxd.html", category:"io multiplayer trending", img:"thumbnails/bloxd.avif", cls:"bloxd"},
+  {name:"Clash Royale", link:"game-clashroyale.html", category:"strategy multiplayer mobile top new", img:"thumbnails/clashroyale.jpg", cls:"clashroyale"},
+  {name:"Snake.io", link:"game-snake.html", category:"io mobile", img:"thumbnails/snakeio.avif", cls:"snakeio"},
+  {name:"Brawl Stars", link:"game-brawlstars.html", category:"arcade multiplayer mobile trending new", img:"thumbnails/brawlstars.jpeg", cls:"brawlstars"},
+  {name:"Bonk.io", link:"game-bonk.html", category:"arcade io multiplayer", img:"thumbnails/bonk.jpeg", cls:"bonk"},
+  {name:"Build Royale", link:"game-buildroyale.html", category:"shooting io multiplayer trending", img:"thumbnails/buildroyale.jpeg", cls:"buildroyale"},
+  {name:"Diep.io", link:"game-diep.html", category:"io multiplayer", img:"thumbnails/diep.jpeg", cls:"diep"},
+  {name:"EvoWorld.io", link:"game-evoworld.html", category:"io trending", img:"thumbnails/evoworld.png", cls:"evoworld"},
+  {name:"Fall Guys", link:"game-fallguys.html", category:"io multiplayer trending", img:"thumbnails/fallguys.jpg", cls:"fallguys"},
+  {name:"Geometry Lite", link:"game-geometrylite.html", category:"arcade", img:"thumbnails/geometrylite.jpeg", cls:"geometrylite"},
+  {name:"Hole.io", link:"game-holeio.html", category:"arcade io multiplayer", img:"thumbnails/holeio.jpeg", cls:"holeio"},
+  {name:"Krunker.io", link:"game-krunker.html", category:"shooting io multiplayer top", img:"thumbnails/krunker.jpeg", cls:"krunker"},
+  {name:"Paper.io 2", link:"game-paper.html", category:"io multiplayer", img:"thumbnails/paper2.jpeg", cls:"paper2"},
+  {name:"Rocket Bot Royale 2", link:"game-rocket.html", category:"shooting io multiplayer top", img:"thumbnails/rocket.jpeg", cls:"rocket"},
+  {name:"Shell Shockers", link:"game-shellshockers.html", category:"shooting io multiplayer", img:"thumbnails/shellshockers.jpeg", cls:"shellshockers"},
+  {name:"Ships 3D", link:"game-ships3d.html", category:"strategy shooting io multiplayer", img:"thumbnails/ships3d.jpeg", cls:"ships3d"},
+  {name:"Sky Riders", link:"game-skyriders.html", category:"racing io", img:"thumbnails/skyriders.jpeg", cls:"skyriders"},
+  {name:"Smash Karts", link:"game-smashkarts.html", category:"racing io multiplayer trending", img:"thumbnails/smashkarts.jpeg", cls:"smashkarts"},
+  {name:"Starve.io", link:"game-starve.html", category:"survival io multiplayer", img:"thumbnails/starve.jpeg", cls:"starve"},
+  {name:"Surviv.io", link:"game-surviv.html", category:"shooting io multiplayer", img:"thumbnails/survev.jpeg", cls:"surviv"},
+  {name:"Venge.io", link:"game-venge.html", category:"shooting io multiplayer trending", img:"thumbnails/venge.jpeg", cls:"venge"},
+  {name:"Zombs.io", link:"game-zombs.html", category:"strategy io multiplayer top", img:"thumbnails/zombs.jpeg", cls:"zombs"},
+  // New games
+  {name:"SimplyUp.io", link:"game-simplyup.html", category:"io arcade trending new", img:"thumbnails/simplyup.avif", cls:"simplyup"},
+  {name:"Vortex 9", link:"game-vortex9.html", category:"shooting multiplayer new trending", img:"thumbnails/vortex9.jpeg", cls:"vortex9"},
+  {name:"Overtide.io", link:"game-overtide.html", category:"io multiplayer shooting new", img:"thumbnails/overtide.webp", cls:"overtide"},
+  {name:"Rooftop Run", link:"game-rooftoprun.html", category:"arcade running trending", img:"thumbnails/rooftoprun.avif", cls:"rooftop"},
+  {name:"Rally Dirt", link:"game-rallyracerdirt.html", category:"racing multiplayer new", img:"thumbnails/rallyracerdirt.jpeg", cls:"rallydirt"},
+  {name:"BreakFree", link:"game-breakfree.html", category:"arcade multiplayer", img:"thumbnails/breakfree.jpeg", cls:"breakfree"},
+  {name:"Time Shooter 2", link:"game-timeshooter2.html", category:"shooting multiplayer", img:"thumbnails/timeshooter2.jpg", cls:"timeshooter2"},
+  {name:"Gridpunk 3v3", link:"game-gridpunk3v3.html", category:"arcade racing new", img:"thumbnails/gridpunk3v3.avif", cls:"gridpunk"},
+  {name:"Kour.io", link:"game-kourio.html", category:"io multiplayer new", img:"thumbnails/kourio.avif", cls:"kourio"}
+];
+
+function updateHero(){
+  const gameName = featuredGames[currentHeroIndex];
+  const game = games.find(g=>g.name===gameName);
+  heroDiv.classList.remove("show");
+  setTimeout(()=>{
+    heroDiv.style.background=`url('${game.img}') center/cover no-repeat`;
+    heroTitle.textContent = game.name;
+    heroLink.href = game.link;
+    heroDiv.classList.add("show");
+  },500);
+}
+function nextHero(){ currentHeroIndex=(currentHeroIndex+1)%featuredGames.length; updateHero(); }
+setInterval(nextHero,5000);
+updateHero();
+
+function renderRow(title, filter){
+  const filtered = games.filter(g=>g.category.includes(filter));
+  if(!filtered.length) return "";
+  return `
+    <h3 class="row-title">${title}</h3>
+    <div class="game-grid">
+      ${filtered.map(g=>`
+        <a href="${g.link}" class="game-card ${g.cls}">
+          <img src="${g.img}" alt="${g.name}" loading="lazy">
+          <div class="gradient-bottom"></div>
+          <h3>${g.name}</h3>
+        </a>`).join("")}
+    </div>
+  `;
+}
+
+function renderHome(){ dynamicSection.innerHTML=`
+    ${renderRow("🔥 Trending Games","trending")}
+    ${renderRow("🆕 New Games","new")}
+    ${renderRow("👥 Multiplayer Games","multiplayer")}
+`; }
+renderHome();
+
+navLinks.forEach(link=>{
+  link.addEventListener("click", ()=>{
+    navLinks.forEach(l=>l.classList.remove("active"));
+    link.classList.add("active");
+    const filter = link.getAttribute("data-filter");
+    heroSection.style.display="none";
+    sectionTitle.textContent=filter.charAt(0).toUpperCase()+filter.slice(1)+" Games";
+    dynamicSection.innerHTML=`<div class="game-grid">${games.filter(g=>g.category.includes(filter)||filter==='all').map(g=>`
+      <a href="${g.link}" class="game-card ${g.cls}">
+        <img src="${g.img}" alt="${g.name}" loading="lazy">
+        <div class="gradient-bottom"></div>
+        <h3>${g.name}</h3>
+      </a>`).join("")}</div>`;
+  });
+});
+
+topHome.addEventListener("click", ()=>{
+  navLinks.forEach(l=>l.classList.remove("active"));
+  sectionTitle.textContent="Home"; heroSection.style.display="block"; renderHome();
+});
+
+searchTop.addEventListener("input", e=>{
+  const query = e.target.value.toLowerCase();
+  dynamicSection.innerHTML=`<div class="game-grid">${games.filter(g=>g.name.toLowerCase().includes(query)).map(g=>`
+    <a href="${g.link}" class="game-card ${g.cls}">
+      <img src="${g.img}" alt="${g.name}" loading="lazy">
+      <div class="gradient-bottom"></div>
+      <h3>${g.name}</h3>
+    </a>`).join("")}</div>`;
+  heroSection.style.display = query?"none":"block";
+});
+</script>
+</body>
+</html>
+
