@@ -50,15 +50,6 @@ const games = [
   {name:"Surviv.io", link:"game-surviv.html", category:"shooting io multiplayer", img:"thumbnails/survev.jpeg", cls:"surviv"},
   {name:"Venge.io", link:"game-venge.html", category:"shooting io multiplayer trending", img:"thumbnails/venge.jpeg", cls:"venge"},
   {name:"Zombs.io", link:"game-zombs.html", category:"strategy io multiplayer top", img:"thumbnails/zombs.jpeg", cls:"zombs"},
-  {name:"SimplyUp.io", link:"game-simplyup.html", category:"io arcade trending new", img:"thumbnails/simplyup.avif", cls:"simplyup"},
-  {name:"Vortex 9", link:"game-vortex9.html", category:"shooting multiplayer new trending", img:"thumbnails/vortex9.jpeg", cls:"vortex9"},
-  {name:"Overtide.io", link:"game-overtide.html", category:"io multiplayer shooting new", img:"thumbnails/overtide.webp", cls:"overtide"},
-  {name:"Rooftop Run", link:"game-rooftoprun.html", category:"arcade running trending new", img:"thumbnails/rooftoprun.avif", cls:"rooftop"},
-  {name:"Rally Dirt", link:"game-rallyracerdirt.html", category:"racing multiplayer new", img:"thumbnails/rallyracerdirt.jpeg", cls:"rallydirt"},
-  {name:"BreakFree", link:"game-breakfree.html", category:"arcade multiplayer new", img:"thumbnails/breakfree.jpeg", cls:"breakfree"},
-  {name:"Time Shooter 2", link:"game-timeshooter2.html", category:"shooting multiplayer new", img:"thumbnails/timeshooter2.jpg", cls:"timeshooter2"},
-  {name:"Gridpunk 3v3", link:"game-gridpunk3v3.html", category:"arcade racing new", img:"thumbnails/gridpunk3v3.avif", cls:"gridpunk"},
-  {name:"Kour.io", link:"game-kourio.html", category:"io multiplayer new", img:"thumbnails/kourio.avif", cls:"kourio"}
 ];
 
 // Hero Functions
