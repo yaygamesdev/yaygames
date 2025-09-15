@@ -1,59 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yay Games - Play Online</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Shooter 2 - Yay Games</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+    header {
+      background: linear-gradient(90deg, #ff6b6b, #f06595, #845ef7);
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      background: #2c2c2c;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      width: fit-content;
+      transition: background 0.3s;
+    }
+    .back-link:hover { background: #444; }
+
+    .game-info {
+      background: #222;
+      margin: 1rem auto;
+      padding: 1.5rem;
+      border-radius: 12px;
+      max-width: 900px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .game-info h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #ffd43b;
+    }
+    .game-info p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #ddd;
+    }
+
+    .tags {
+      margin-top: 1rem;
+    }
+    .tag {
+      display: inline-block;
+      background: #333;
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      margin: 0.3rem;
+      border-radius: 999px;
+      transition: background 0.3s;
+    }
+    .tag:hover { background: #555; }
+
+    #loader {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      color: #fff;
+      font-size: 1.2rem;
+      z-index: 10;
+    }
+
+    .game-container {
+      position: relative;
+      flex: 1;
+      max-width: 1200px;
+      margin: 1rem auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    .fullscreen-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ff6b6b;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 20;
+      transition: background 0.3s;
+    }
+    .fullscreen-btn:hover { background: #fa5252; }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #181818;
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
-<div class="top-bar">
-  <div class="brand" id="top-home"><span>🎮</span><span>Yay Games</span></div>
-  
-  <div class="search-container">
-    <input type="text" id="game-search-top" placeholder="Search games or categories...">
-    <button class="search-clear" id="search-clear">✕</button>
-    <div class="search-suggestions" id="search-suggestions"></div>
-  </div>
-</div>
 
-<div class="container">
-  <nav id="sidebar">
-    <a data-filter="all">🗂️ All</a>
-    <a data-filter="arcade">🕹️ Arcade</a>
-    <a data-filter="shooting">💥 Shooting</a>
-    <a data-filter="racing">🏎️ Racing</a>
-    <a data-filter="io">🌐 IO</a>
-    <a data-filter="survival">🛡️ Survival</a>
-    <a data-filter="strategy">🎯 Strategy</a>
-    <a data-filter="mobile">📱 Mobile</a>
-    <hr>
-    <a data-filter="multiplayer">👥 Multiplayer</a>
-    <a data-filter="trending">🔥 Trending</a>
-    <a data-filter="new">🆕 New</a>
-    <a data-filter="top">⭐ Top Rated</a>
-  </nav>
+  <header>🎮 Yay Games</header>
+  <a class="back-link" href="index.html">⬅ Back to Homepage</a>
 
-  <main>
-    <h2 class="section-title" id="section-title">Home</h2>
-    <div class="featured-hero" id="hero-section">
-      <div class="hero-big" id="hero-big">
-        <div class="hero-content">
-          <h2 id="hero-title"></h2>
-          <a id="hero-link" href="#">Play Now</a>
-        </div>
-      </div>
+  <div class="game-info">
+    <h1>Time Shooter 2</h1>
+    <p>Time Shooter 2 is a slow-motion action shooter where time moves only when you do. Outsmart enemies, dodge bullets, and fight through levels with precision and strategy.</p>
+    <div class="tags">
+      <span class="tag">Shooter</span>
+      <span class="tag">Action</span>
+      <span class="tag">Strategy</span>
+      <span class="tag">Slow Motion</span>
     </div>
-    <div id="dynamic-section"></div>
-  </main>
-</div>
+  </div>
 
-<div id="sidebar-toggle">▶</div>
-<footer>© 2025 Yay Games. All rights reserved.</footer>
+  <div class="game-container">
+    <div id="loader">Loading game...</div>
+    <iframe id="game-frame" src="https://games.crazygames.com/en_US/time-shooter-2/index.html?v=1.339" allow="fullscreen; autoplay"></iframe>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+  </div>
 
-<script src="script.js"></script>
+  <footer>© 2025 Yay Games. All rights reserved.</footer>
+
+  <script>
+    const iframe = document.getElementById('game-frame');
+    const loader = document.getElementById('loader');
+
+    iframe.onload = () => {
+      loader.style.display = 'none';
+      iframe.style.display = 'block';
+    };
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        iframe.requestFullscreen().catch(err => {
+          alert(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+
 </body>
 </html>
