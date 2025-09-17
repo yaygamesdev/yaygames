@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yay Games Proxy – Home</title>
+<style>
+  :root {
+    --grad: linear-gradient(135deg, #ff6b6b, #f06595, #845ef7);
+    --dark-bg: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    --card-bg: #222;
+    --accent: #ffd43b;
+    --text-muted: #ccc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--dark-bg);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  header {
+    background: var(--grad);
+    text-align: center;
+    padding: 1.2rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  /* Single Nav Link */
+  nav {
+    background: #181818;
+    display: flex;
+    justify-content: center;
+    padding: 0.8rem;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* Proxy Form */
+  .proxy-card {
+    background: var(--card-bg);
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  select, input[type="text"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #111;
+    color: #fff;
+    font-size: 1rem;
+    transition: border 0.3s;
+  }
+  select:focus, input[type="text"]:focus {
+    border-color: #ff6b6b;
+    outline: none;
+  }
+  button {
+    padding: 0.8rem 1.2rem;
+    background: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  button:hover { background: #fa5252; }
+  button svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* Features */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    padding: 0 1rem;
+  }
+  .feature {
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .feature h3 {
+    margin-bottom: 0.6rem;
+    color: var(--accent);
+    font-size: 1.2rem;
+  }
+  .feature p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background: #181818;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-top: auto;
+  }
+</style>
+</head>
+<body>
+
+  <header>🎮 Yay Games Proxy</header>
+  <nav>
+    <a href="home.html">YayGames Home</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Welcome to Your Private Gateway</h1>
+    <p>
+      Access blocked sites and browse securely with Yay Games Proxy.  
+      Choose a fast server, enter a URL or search, and start exploring the open web—right from your homepage.
+    </p>
+  </section>
+
+  <div class="proxy-card">
+    <form action="https://cdn.proxyium.com/proxyrequest.php" method="post">
+      <input type="hidden" name="type" value="">
+      <select name="proxy_country">
+        <option value="pl" selected>Poland/France (Fast)</option>
+        <option value="us">United States (Medium)</option>
+        <option value="sg">Singapore (Slow)</option>
+        <option value="de">Germany (Slow)</option>
+      </select>
+      <input type="text" name="url" placeholder="Enter a URL or search term">
+      <button type="submit">
+        GO
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206.6 319.9">
+          <path d="M199.55,176.85l-136,136a23.9,23.9,0,0,1-33.9,0l-22.6-22.6a23.9,23.9,0,0,1,0-33.9l96.4-96.4L7.05,63.55a23.9,23.9,0,0,1,0-33.9l22.6-22.6a23.9,23.9,0,0,1,33.9,0l136,136a23.78,23.78,0,0,1,0,33.8Z"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <section class="features">
+    <div class="feature">
+      <h3>Fast Servers</h3>
+      <p>Connect through high-speed servers in multiple regions for smooth browsing.</p>
+    </div>
+    <div class="feature">
+      <h3>Private & Secure</h3>
+      <p>Your data stays yours—browse anonymously with encrypted connections.</p>
+    </div>
+    <div class="feature">
+      <h3>Simple to Use</h3>
+      <p>No setup required. Just pick a server, paste a link, and click GO.</p>
+    </div>
+  </section>
+
+  <footer>© 2025 Yay Games. All rights reserved.</footer>
+
+</body>
+</html>
