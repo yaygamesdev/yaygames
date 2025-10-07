@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Universal Proxy Viewer</title>
+  <style>
+    body { font-family: sans-serif; background:#0e0e0e; color:white; text-align:center; }
+    input { width:60%; padding:8px; border:none; border-radius:6px; background:#1a1a1a; color:white; }
+    button { padding:8px 16px; margin-left:10px; background:#007bff; color:white; border:none; border-radius:6px; cursor:pointer; }
+    iframe { width:100%; height:80vh; margin-top:20px; border:none; border-radius:8px; background:white; }
+  </style>
+</head>
+<body>
+  <h2>🌍 Universal Proxy Viewer</h2>
+  <input id="url" placeholder="Enter any site URL" value="https://example.com">
+  <button onclick="load()">Load</button>
+
+  <iframe id="viewer"></iframe>
+
+  <script>
+    function load() {
+      const iframe = document.getElementById('viewer');
+      const url = document.getElementById('url').value.trim();
+      if (!url) return alert("Enter a URL");
+
+      iframe.src = `https://simple-proxy.vercel.app/?url=${encodeURIComponent(url)}`;
+    }
+  </script>
+</body>
+</html>
