@@ -12,14 +12,12 @@ export default async function handler(req) {
 
   try {
     const res = await fetch(target, {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-      },
+      headers: { "User-Agent": "Mozilla/5.0" },
     });
 
     let body = await res.text();
 
-    // Fix relative paths for images/scripts/styles
+    // Fix relative links
     body = body.replace(/(href|src)=["'](\/[^"']*)["']/g, (m, p1, p2) => {
       const origin = new URL(target).origin;
       return `${p1}="${origin}${p2}"`;
